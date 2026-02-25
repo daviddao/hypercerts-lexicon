@@ -2,4 +2,4 @@
 "@hypercerts-org/lexicon": minor
 ---
 
-Make items optional in collection schema to allow creating empty collections
+Refactor collection schema: make items optional to allow empty collections, rename type to collectionType to avoid reserved keyword collision
