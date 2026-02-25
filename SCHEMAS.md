@@ -37,16 +37,16 @@ Hypercerts-specific lexicons for tracking impact work and claims.
 | ------------------------ | -------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | `title`                  | `string` | ✅       | Title of the hypercert.                                                                                                                                                     | maxLength: 256                       |
 | `shortDescription`       | `string` | ✅       | Short summary of this activity claim, suitable for previews and list views. Rich text annotations may be provided via `shortDescriptionFacets`.                             | maxLength: 3000, maxGraphemes: 300   |
-| `shortDescriptionFacets` | `ref`    | ❌       | Rich text annotations for `shortDescription` (mentions, URLs, hashtags, etc).                                                                                               |                                      |
+| `shortDescriptionFacets` | `ref[]`  | ❌       | Rich text annotations for `shortDescription` (mentions, URLs, hashtags, etc).                                                                                               |                                      |
 | `description`            | `string` | ❌       | Optional longer description of this activity claim, including context or interpretation. Rich text annotations may be provided via `descriptionFacets`.                     | maxLength: 30000, maxGraphemes: 3000 |
-| `descriptionFacets`      | `ref`    | ❌       | Rich text annotations for `description` (mentions, URLs, hashtags, etc).                                                                                                    |                                      |
+| `descriptionFacets`      | `ref[]`  | ❌       | Rich text annotations for `description` (mentions, URLs, hashtags, etc).                                                                                                    |                                      |
 | `image`                  | `union`  | ❌       | The hypercert visual representation as a URI or image blob.                                                                                                                 |                                      |
 | `workScope`              | `union`  | ❌       | Work scope definition. A CEL expression for structured, machine-evaluable scopes; a strongRef for future extensibility; or a free-form string for simple and legacy scopes. |                                      |
 | `startDate`              | `string` | ❌       | When the work began                                                                                                                                                         |                                      |
 | `endDate`                | `string` | ❌       | When the work ended                                                                                                                                                         |                                      |
-| `contributors`           | `ref`    | ❌       | An array of contributor objects, each containing contributor information, weight, and contribution details.                                                                 |                                      |
+| `contributors`           | `ref[]`  | ❌       | An array of contributor objects, each containing contributor information, weight, and contribution details.                                                                 |                                      |
 | `rights`                 | `ref`    | ❌       | A strong reference to the rights that this hypercert has. The record referenced must conform with the lexicon org.hypercerts.claim.rights.                                  |                                      |
-| `locations`              | `ref`    | ❌       | An array of strong references to the location where activity was performed. The record referenced must conform with the lexicon app.certified.location.                     |                                      |
+| `locations`              | `ref[]`  | ❌       | An array of strong references to the location where activity was performed. The record referenced must conform with the lexicon app.certified.location.                     |                                      |
 | `createdAt`              | `string` | ✅       | Client-declared timestamp when this record was originally created                                                                                                           |                                      |
 
 #### Defs
@@ -87,18 +87,18 @@ Hypercerts-specific lexicons for tracking impact work and claims.
 
 #### Properties
 
-| Property                 | Type     | Required | Description                                                                                                                                                                                                                               | Comments                             |
-| ------------------------ | -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `subjects`               | `ref`    | ❌       | References to the subject(s) the attachment is connected to—this may be an activity claim, outcome claim, measurement, evaluation, or even another attachment. This is optional as the attachment can exist before the claim is recorded. | maxLength: 100                       |
-| `contentType`            | `string` | ❌       | The type of attachment, e.g. report, audit, evidence, testimonial, methodology, etc.                                                                                                                                                      | maxLength: 64                        |
-| `content`                | `union`  | ✅       | The files, documents, or external references included in this attachment record.                                                                                                                                                          | maxLength: 100                       |
-| `title`                  | `string` | ✅       | Title of this attachment.                                                                                                                                                                                                                 | maxLength: 256                       |
-| `shortDescription`       | `string` | ❌       | Short summary of this attachment, suitable for previews and list views. Rich text annotations may be provided via `shortDescriptionFacets`.                                                                                               | maxLength: 3000, maxGraphemes: 300   |
-| `shortDescriptionFacets` | `ref`    | ❌       | Rich text annotations for `shortDescription` (mentions, URLs, hashtags, etc).                                                                                                                                                             |                                      |
-| `description`            | `string` | ❌       | Optional longer description of this attachment, including context or interpretation. Rich text annotations may be provided via `descriptionFacets`.                                                                                       | maxLength: 30000, maxGraphemes: 3000 |
-| `descriptionFacets`      | `ref`    | ❌       | Rich text annotations for `description` (mentions, URLs, hashtags, etc).                                                                                                                                                                  |                                      |
-| `location`               | `ref`    | ❌       | A strong reference to the location where this attachment's subject matter occurred. The record referenced must conform with the lexicon app.certified.location.                                                                           |                                      |
-| `createdAt`              | `string` | ✅       | Client-declared timestamp when this record was originally created.                                                                                                                                                                        |                                      |
+| Property                 | Type      | Required | Description                                                                                                                                                                                                                               | Comments                             |
+| ------------------------ | --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `subjects`               | `ref[]`   | ❌       | References to the subject(s) the attachment is connected to—this may be an activity claim, outcome claim, measurement, evaluation, or even another attachment. This is optional as the attachment can exist before the claim is recorded. | maxLength: 100                       |
+| `contentType`            | `string`  | ❌       | The type of attachment, e.g. report, audit, evidence, testimonial, methodology, etc.                                                                                                                                                      | maxLength: 64                        |
+| `content`                | `union[]` | ✅       | The files, documents, or external references included in this attachment record.                                                                                                                                                          | maxLength: 100                       |
+| `title`                  | `string`  | ✅       | Title of this attachment.                                                                                                                                                                                                                 | maxLength: 256                       |
+| `shortDescription`       | `string`  | ❌       | Short summary of this attachment, suitable for previews and list views. Rich text annotations may be provided via `shortDescriptionFacets`.                                                                                               | maxLength: 3000, maxGraphemes: 300   |
+| `shortDescriptionFacets` | `ref[]`   | ❌       | Rich text annotations for `shortDescription` (mentions, URLs, hashtags, etc).                                                                                                                                                             |                                      |
+| `description`            | `string`  | ❌       | Optional longer description of this attachment, including context or interpretation. Rich text annotations may be provided via `descriptionFacets`.                                                                                       | maxLength: 30000, maxGraphemes: 3000 |
+| `descriptionFacets`      | `ref[]`   | ❌       | Rich text annotations for `description` (mentions, URLs, hashtags, etc).                                                                                                                                                                  |                                      |
+| `location`               | `ref`     | ❌       | A strong reference to the location where this attachment's subject matter occurred. The record referenced must conform with the lexicon app.certified.location.                                                                           |                                      |
+| `createdAt`              | `string`  | ✅       | Client-declared timestamp when this record was originally created.                                                                                                                                                                        |                                      |
 
 ---
 
@@ -118,7 +118,7 @@ Hypercerts-specific lexicons for tracking impact work and claims.
 | `description`      | `ref`    | ❌       | Rich-text description, represented as a Leaflet linear document.                                                                                                  |                                    |
 | `avatar`           | `union`  | ❌       | The collection's avatar/profile image as a URI or image blob.                                                                                                     |                                    |
 | `banner`           | `union`  | ❌       | Larger horizontal image to display behind the collection view.                                                                                                    |                                    |
-| `items`            | `ref`    | ✅       | Array of items in this collection with optional weights.                                                                                                          |                                    |
+| `items`            | `ref[]`  | ✅       | Array of items in this collection with optional weights.                                                                                                          |                                    |
 | `location`         | `ref`    | ❌       | A strong reference to the location where this collection's activities were performed. The record referenced must conform with the lexicon app.certified.location. |                                    |
 | `createdAt`        | `string` | ✅       | Client-declared timestamp when this record was originally created                                                                                                 |                                    |
 
@@ -176,16 +176,16 @@ Hypercerts-specific lexicons for tracking impact work and claims.
 
 #### Properties
 
-| Property       | Type     | Required | Description                                                                                                                                                          | Comments                            |
-| -------------- | -------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| `subject`      | `ref`    | ❌       | A strong reference to what is being evaluated. (e.g activity, measurement, contribution, etc.)                                                                       |                                     |
-| `evaluators`   | `ref`    | ✅       | DIDs of the evaluators                                                                                                                                               | maxLength: 1000                     |
-| `content`      | `union`  | ❌       | Evaluation data (URIs or blobs) containing detailed reports or methodology                                                                                           | maxLength: 100                      |
-| `measurements` | `ref`    | ❌       | Optional references to the measurements that contributed to this evaluation. The record(s) referenced must conform with the lexicon org.hypercerts.claim.measurement | maxLength: 100                      |
-| `summary`      | `string` | ✅       | Brief evaluation summary                                                                                                                                             | maxLength: 5000, maxGraphemes: 1000 |
-| `score`        | `ref`    | ❌       | Overall score for an evaluation on a numeric scale.                                                                                                                  |                                     |
-| `location`     | `ref`    | ❌       | An optional reference for georeferenced evaluations. The record referenced must conform with the lexicon app.certified.location.                                     |                                     |
-| `createdAt`    | `string` | ✅       | Client-declared timestamp when this record was originally created                                                                                                    |                                     |
+| Property       | Type      | Required | Description                                                                                                                                                          | Comments                            |
+| -------------- | --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `subject`      | `ref`     | ❌       | A strong reference to what is being evaluated. (e.g activity, measurement, contribution, etc.)                                                                       |                                     |
+| `evaluators`   | `ref[]`   | ✅       | DIDs of the evaluators                                                                                                                                               | maxLength: 1000                     |
+| `content`      | `union[]` | ❌       | Evaluation data (URIs or blobs) containing detailed reports or methodology                                                                                           | maxLength: 100                      |
+| `measurements` | `ref[]`   | ❌       | Optional references to the measurements that contributed to this evaluation. The record(s) referenced must conform with the lexicon org.hypercerts.claim.measurement | maxLength: 100                      |
+| `summary`      | `string`  | ✅       | Brief evaluation summary                                                                                                                                             | maxLength: 5000, maxGraphemes: 1000 |
+| `score`        | `ref`     | ❌       | Overall score for an evaluation on a numeric scale.                                                                                                                  |                                     |
+| `location`     | `ref`     | ❌       | An optional reference for georeferenced evaluations. The record referenced must conform with the lexicon app.certified.location.                                     |                                     |
+| `createdAt`    | `string`  | ✅       | Client-declared timestamp when this record was originally created                                                                                                    |                                     |
 
 #### Defs
 
@@ -207,22 +207,22 @@ Hypercerts-specific lexicons for tracking impact work and claims.
 
 #### Properties
 
-| Property        | Type     | Required | Description                                                                                                                                             | Comments                           |
-| --------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| `subject`       | `ref`    | ❌       | A strong reference to the record this measurement refers to (e.g. an activity, project, or claim).                                                      |                                    |
-| `metric`        | `string` | ✅       | The metric being measured, e.g. forest area restored, number of users, etc.                                                                             | maxLength: 500                     |
-| `unit`          | `string` | ✅       | The unit of the measured value (e.g. kg CO₂e, hectares, %, index score).                                                                                | maxLength: 50                      |
-| `value`         | `string` | ✅       | The measured numeric value.                                                                                                                             | maxLength: 500                     |
-| `startDate`     | `string` | ❌       | The start date and time when the measurement began.                                                                                                     |                                    |
-| `endDate`       | `string` | ❌       | The end date and time when the measurement ended. If it was a one time measurement, the endDate should be equal to the startDate.                       |                                    |
-| `locations`     | `ref`    | ❌       | Optional geographic references related to where the measurement was taken. Each referenced record must conform with the app.certified.location lexicon. | maxLength: 100                     |
-| `methodType`    | `string` | ❌       | Short identifier for the measurement methodology                                                                                                        | maxLength: 30                      |
-| `methodURI`     | `string` | ❌       | URI to methodology documentation, standard protocol, or measurement procedure                                                                           |                                    |
-| `evidenceURI`   | `string` | ❌       | URIs to related evidence or underlying data (e.g. org.hypercerts.claim.evidence records or raw datasets)                                                | maxLength: 50                      |
-| `measurers`     | `ref`    | ❌       | DIDs of the entity (or entities) that measured this data                                                                                                | maxLength: 100                     |
-| `comment`       | `string` | ❌       | Short comment of this measurement, suitable for previews and list views. Rich text annotations may be provided via `commentFacets`.                     | maxLength: 3000, maxGraphemes: 300 |
-| `commentFacets` | `ref`    | ❌       | Rich text annotations for `comment` (mentions, URLs, hashtags, etc).                                                                                    |                                    |
-| `createdAt`     | `string` | ✅       | Client-declared timestamp when this record was originally created                                                                                       |                                    |
+| Property        | Type       | Required | Description                                                                                                                                             | Comments                           |
+| --------------- | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `subject`       | `ref`      | ❌       | A strong reference to the record this measurement refers to (e.g. an activity, project, or claim).                                                      |                                    |
+| `metric`        | `string`   | ✅       | The metric being measured, e.g. forest area restored, number of users, etc.                                                                             | maxLength: 500                     |
+| `unit`          | `string`   | ✅       | The unit of the measured value (e.g. kg CO₂e, hectares, %, index score).                                                                                | maxLength: 50                      |
+| `value`         | `string`   | ✅       | The measured numeric value.                                                                                                                             | maxLength: 500                     |
+| `startDate`     | `string`   | ❌       | The start date and time when the measurement began.                                                                                                     |                                    |
+| `endDate`       | `string`   | ❌       | The end date and time when the measurement ended. If it was a one time measurement, the endDate should be equal to the startDate.                       |                                    |
+| `locations`     | `ref[]`    | ❌       | Optional geographic references related to where the measurement was taken. Each referenced record must conform with the app.certified.location lexicon. | maxLength: 100                     |
+| `methodType`    | `string`   | ❌       | Short identifier for the measurement methodology                                                                                                        | maxLength: 30                      |
+| `methodURI`     | `string`   | ❌       | URI to methodology documentation, standard protocol, or measurement procedure                                                                           |                                    |
+| `evidenceURI`   | `string[]` | ❌       | URIs to related evidence or underlying data (e.g. org.hypercerts.claim.evidence records or raw datasets)                                                | maxLength: 50                      |
+| `measurers`     | `ref[]`    | ❌       | DIDs of the entity (or entities) that measured this data                                                                                                | maxLength: 100                     |
+| `comment`       | `string`   | ❌       | Short comment of this measurement, suitable for previews and list views. Rich text annotations may be provided via `commentFacets`.                     | maxLength: 3000, maxGraphemes: 300 |
+| `commentFacets` | `ref[]`    | ❌       | Rich text annotations for `comment` (mentions, URLs, hashtags, etc).                                                                                    |                                    |
+| `createdAt`     | `string`   | ✅       | Client-declared timestamp when this record was originally created                                                                                       |                                    |
 
 ---
 
@@ -270,9 +270,56 @@ Hypercerts-specific lexicons for tracking impact work and claims.
 
 ### `org.hypercerts.helper.celExpression`
 
-**Description:** A structured, machine-evaluable work scope definition using CEL (Common Expression Language). Tags referenced in the expression correspond to org.hypercerts.helper.workScopeTag keys. See https://github.com/google/cel-spec
+**Description:** A structured, machine-evaluable work scope definition using CEL (Common Expression Language). Tags referenced in the expression correspond to org.hypercerts.helper.workScopeTag keys. See https://github.com/google/cel-spec. Note: this is intentionally type 'object' (not 'record') so it can be directly embedded inline in union types (e.g., activity.workScope) without requiring a separate collection or strongRef indirection.
+
+#### Properties
+
+| Property     | Type       | Required | Description                                                                                                                                                 | Comments                             |
+| ------------ | ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `expression` | `string`   | ✅       | A CEL expression encoding the work scope conditions. Example: scope.hasAll(['mangrove_restoration', 'environmental_education']) && location.country == 'KE' | maxLength: 10000, maxGraphemes: 5000 |
+| `labels`     | `string[]` | ✅       | Flat list of org.hypercerts.helper.workScopeTag keys referenced in the expression. Enables fast indexing and basic filtering without CEL evaluation.        | maxLength: 100                       |
+| `version`    | `string`   | ✅       | CEL context schema version. Currently 'v1'.                                                                                                                 | maxLength: 16                        |
+| `createdAt`  | `string`   | ✅       | Client-declared timestamp when this expression was originally created.                                                                                      |                                      |
+
+---
+
+### `org.hypercerts.helper.ops`
+
+**Description:** Operator node for work scope logic. Nesting is achieved by having args strongRefs point to either workScopeTag records (leaf atoms) or other ops records (nested expressions). Operator semantics are defined by consuming applications.
+
+Examples: op='all' (AND), op='any' (OR), op='not' (NOT; typically unary).
 
 **Key:** `tid`
+
+#### Properties
+
+| Property    | Type     | Required | Description                                                                                                                                                                                                 | Comments                                         |
+| ----------- | -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `op`        | `string` | ✅       | Operator identifier. Semantics are defined by the evaluating application. Examples: 'all' (AND), 'any' (OR), 'not' (NOT).                                                                                   | maxLength: 64, Known values: `all`, `any`, `not` |
+| `args`      | `ref[]`  | ✅       | Arguments. Each strongRef should point to either org.hypercerts.helper.workScopeTag (leaf) or org.hypercerts.helper.ops (nested). For op='not', args SHOULD have exactly one element (enforced by clients). | maxLength: 100                                   |
+| `createdAt` | `string` | ✅       | Client-declared timestamp when this record was originally created                                                                                                                                           |                                                  |
+
+---
+
+### `org.hypercerts.helper.workScopeExpr`
+
+**Description:** A reusable work-scope boolean expression (simple flat form): (ALL allOf) AND (ANY anyOf, if present) AND (NONE noneOf). Designed to cover the vast majority of practical work-scope definitions (include, require, exclude) without recursion. For full nested boolean logic or complex conditional expressions, use org.hypercerts.helper.ops.
+
+An empty work-scope expression represents an unconstrained scope. If `allOf`, `anyOf`, and `noneOf` are all absent or empty, the expression imposes no filtering constraints. In this case, all work is considered in scope by default.
+
+**Key:** `tid`
+
+#### Properties
+
+| Property      | Type      | Required | Description                                                                                                                       | Comments        |
+| ------------- | --------- | -------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `version`     | `integer` | ✅       | Schema version for this expression. Start with 1. Enables forward-compatible evolution of evaluation semantics.                   |                 |
+| `label`       | `string`  | ❌       | Optional short human-readable label for UI display (e.g., 'OSS docs/code — no marketing').                                        | maxLength: 140  |
+| `description` | `string`  | ❌       | Optional longer explanation of the scope intent, interpretation guidance, or edge-case clarifications.                            | maxLength: 4000 |
+| `allOf`       | `ref[]`   | ❌       | All referenced tags must match for something to be considered in-scope. Typically refs to org.hypercerts.helper.workScopeTag.     | maxLength: 100  |
+| `anyOf`       | `ref[]`   | ❌       | At least one referenced tag must match (if anyOf is present and non-empty). Typically refs to org.hypercerts.helper.workScopeTag. | maxLength: 100  |
+| `noneOf`      | `ref[]`   | ❌       | None of the referenced tags may match. If any excluded tag matches, the contribution or activity is considered out-of-scope.      | maxLength: 100  |
+| `createdAt`   | `string`  | ✅       | Timestamp when this work-scope expression was created.                                                                            |                 |
 
 ---
 
@@ -284,19 +331,19 @@ Hypercerts-specific lexicons for tracking impact work and claims.
 
 #### Properties
 
-| Property            | Type     | Required | Description                                                                                                                                                                         | Comments                                                                    |
-| ------------------- | -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `key`               | `string` | ✅       | Lowercase, underscore-separated machine-readable key for this scope (e.g., 'mangrove_restoration', 'biodiversity_monitoring'). Used as the canonical identifier in CEL expressions. | maxLength: 120                                                              |
-| `label`             | `string` | ✅       | Human-readable label for this scope.                                                                                                                                                | maxLength: 200                                                              |
-| `type`              | `string` | ❌       | Category type of this scope.                                                                                                                                                        | maxLength: 50, Known values: `topic`, `language`, `domain`, `method`, `tag` |
-| `description`       | `string` | ❌       | Optional longer description of this scope.                                                                                                                                          | maxLength: 10000, maxGraphemes: 1000                                        |
-| `parent`            | `ref`    | ❌       | Optional strong reference to a parent work scope tag record for taxonomy/hierarchy support. The record referenced must conform with the lexicon org.hypercerts.helper.workScopeTag. |                                                                             |
-| `status`            | `string` | ❌       | Lifecycle status of this tag. Communities propose tags, curators accept them, deprecated tags point to replacements via supersededBy.                                               | maxLength: 20, Known values: `proposed`, `accepted`, `deprecated`           |
-| `supersededBy`      | `ref`    | ❌       | When status is 'deprecated', points to the replacement work scope tag record. The record referenced must conform with the lexicon org.hypercerts.helper.workScopeTag.               |                                                                             |
-| `aliases`           | `string` | ❌       | Optional array of alternative names or identifiers for this scope.                                                                                                                  | maxLength: 50                                                               |
-| `sameAs`            | `string` | ❌       | Links to equivalent concepts in external ontologies (e.g., Wikidata QIDs, ENVO terms, SDG targets).                                                                                 | maxLength: 20                                                               |
-| `externalReference` | `union`  | ❌       | Optional external reference for this scope as a URI or blob.                                                                                                                        |                                                                             |
-| `createdAt`         | `string` | ✅       | Client-declared timestamp when this record was originally created.                                                                                                                  |                                                                             |
+| Property            | Type       | Required | Description                                                                                                                                                                         | Comments                                                                    |
+| ------------------- | ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `key`               | `string`   | ✅       | Lowercase, underscore-separated machine-readable key for this scope (e.g., 'mangrove_restoration', 'biodiversity_monitoring'). Used as the canonical identifier in CEL expressions. | maxLength: 120                                                              |
+| `label`             | `string`   | ✅       | Human-readable label for this scope.                                                                                                                                                | maxLength: 200                                                              |
+| `type`              | `string`   | ❌       | Category type of this scope.                                                                                                                                                        | maxLength: 50, Known values: `topic`, `language`, `domain`, `method`, `tag` |
+| `description`       | `string`   | ❌       | Optional longer description of this scope.                                                                                                                                          | maxLength: 10000, maxGraphemes: 1000                                        |
+| `parent`            | `ref`      | ❌       | Optional strong reference to a parent work scope tag record for taxonomy/hierarchy support. The record referenced must conform with the lexicon org.hypercerts.helper.workScopeTag. |                                                                             |
+| `status`            | `string`   | ❌       | Lifecycle status of this tag. Communities propose tags, curators accept them, deprecated tags point to replacements via supersededBy.                                               | maxLength: 20, Known values: `proposed`, `accepted`, `deprecated`           |
+| `supersededBy`      | `ref`      | ❌       | When status is 'deprecated', points to the replacement work scope tag record. The record referenced must conform with the lexicon org.hypercerts.helper.workScopeTag.               |                                                                             |
+| `aliases`           | `string[]` | ❌       | Optional array of alternative names or identifiers for this scope.                                                                                                                  | maxLength: 50                                                               |
+| `sameAs`            | `string[]` | ❌       | Links to equivalent concepts in external ontologies (e.g., Wikidata QIDs, ENVO terms, SDG targets).                                                                                 | maxLength: 20                                                               |
+| `externalReference` | `union`    | ❌       | Optional external reference for this scope as a URI or blob.                                                                                                                        |                                                                             |
+| `createdAt`         | `string`   | ✅       | Client-declared timestamp when this record was originally created.                                                                                                                  |                                                                             |
 
 ---
 
@@ -346,7 +393,7 @@ Certified lexicons are common/shared lexicons that can be used across multiple p
 | `title`          | `string` | ✅       | Human-readable title of the badge.                                                       |                                                                             |
 | `icon`           | `blob`   | ✅       | Icon representing the badge, stored as a blob for compact visual display.                | maxSize: 1048576, accepts: image/png, image/jpeg, image/webp, image/svg+xml |
 | `description`    | `string` | ❌       | Optional short statement describing what the badge represents.                           |                                                                             |
-| `allowedIssuers` | `ref`    | ❌       | Optional allowlist of DIDs allowed to issue this badge. If omitted, anyone may issue it. |                                                                             |
+| `allowedIssuers` | `ref[]`  | ❌       | Optional allowlist of DIDs allowed to issue this badge. If omitted, anyone may issue it. |                                                                             |
 | `createdAt`      | `string` | ✅       | Client-declared timestamp when this record was originally created                        |                                                                             |
 
 ---
@@ -465,7 +512,12 @@ External lexicons from other protocols and systems.
 
 ### `com.atproto.repo.strongRef`
 
-**Key:** `tid`
+#### Properties
+
+| Property | Type     | Required | Description |
+| -------- | -------- | -------- | ----------- |
+| `uri`    | `string` | ✅       |             |
+| `cid`    | `string` | ✅       |             |
 
 ---
 
