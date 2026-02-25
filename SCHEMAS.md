@@ -268,6 +268,46 @@ Hypercerts-specific lexicons for tracking impact work and claims.
 
 ---
 
+### `org.hypercerts.helper.ops`
+
+**Description:** Operator node for work scope logic. Nesting is achieved by having args strongRefs point to either workScopeTag records (leaf atoms) or other ops records (nested expressions). Operator semantics are defined by consuming applications.
+
+Examples: op='all' (AND), op='any' (OR), op='not' (NOT; typically unary).
+
+**Key:** `tid`
+
+#### Properties
+
+| Property    | Type     | Required | Description                                                                                                                                                                                                 | Comments                                         |
+| ----------- | -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `op`        | `string` | ✅       | Operator identifier. Semantics are defined by the evaluating application. Examples: 'all' (AND), 'any' (OR), 'not' (NOT).                                                                                   | maxLength: 64, Known values: `all`, `any`, `not` |
+| `args`      | `ref`    | ✅       | Arguments. Each strongRef should point to either org.hypercerts.helper.workScopeTag (leaf) or org.hypercerts.helper.ops (nested). For op='not', args SHOULD have exactly one element (enforced by clients). | maxLength: 100                                   |
+| `createdAt` | `string` | ✅       | Client-declared timestamp when this record was originally created                                                                                                                                           |                                                  |
+
+---
+
+### `org.hypercerts.helper.workScopeExpr`
+
+**Description:** A reusable work-scope boolean expression (simple flat form): (ALL allOf) AND (ANY anyOf, if present) AND (NONE noneOf). Designed to cover the vast majority of practical work-scope definitions (include, require, exclude) without recursion. For full nested boolean logic or complex conditional expressions, use org.hypercerts.helper.ops.
+
+An empty work-scope expression represents an unconstrained scope. If `allOf`, `anyOf`, and `noneOf` are all absent or empty, the expression imposes no filtering constraints. In this case, all work is considered in scope by default.
+
+**Key:** `tid`
+
+#### Properties
+
+| Property      | Type      | Required | Description                                                                                                                       | Comments        |
+| ------------- | --------- | -------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `version`     | `integer` | ✅       | Schema version for this expression. Start with 1. Enables forward-compatible evolution of evaluation semantics.                   |                 |
+| `label`       | `string`  | ❌       | Optional short human-readable label for UI display (e.g., 'OSS docs/code — no marketing').                                        | maxLength: 140  |
+| `description` | `string`  | ❌       | Optional longer explanation of the scope intent, interpretation guidance, or edge-case clarifications.                            | maxLength: 4000 |
+| `allOf`       | `ref`     | ❌       | All referenced tags must match for something to be considered in-scope. Typically refs to org.hypercerts.helper.workScopeTag.     | maxLength: 100  |
+| `anyOf`       | `ref`     | ❌       | At least one referenced tag must match (if anyOf is present and non-empty). Typically refs to org.hypercerts.helper.workScopeTag. | maxLength: 100  |
+| `noneOf`      | `ref`     | ❌       | None of the referenced tags may match. If any excluded tag matches, the contribution or activity is considered out-of-scope.      | maxLength: 100  |
+| `createdAt`   | `string`  | ✅       | Timestamp when this work-scope expression was created.                                                                            |                 |
+
+---
+
 ### `org.hypercerts.helper.workScopeTag`
 
 **Description:** A reusable scope atom for work scope logic expressions. Scopes can represent topics, languages, domains, deliverables, methods, regions, tags, or other categorical labels.
@@ -374,7 +414,7 @@ Certified lexicons are common/shared lexicons that can be used across multiple p
 
 ---
 
-### `app.certified.actor.orgMetadata`
+### `app.certified.actor.organization`
 
 **Description:** Extended metadata for an organization actor. Complements the base actor profile with organization-specific fields like legal structure, contact info, and reference links.
 
@@ -382,14 +422,22 @@ Certified lexicons are common/shared lexicons that can be used across multiple p
 
 #### Properties
 
-| Property           | Type     | Required | Description                                                                                                                                     | Comments                             |
-| ------------------ | -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| `organizationType` | `string` | ❌       | Legal or operational structure of the organization (e.g. 'nonprofit', 'ngo', 'government', 'social-enterprise', 'cooperative').                 | maxLength: 1000, maxGraphemes: 100   |
-| `urls`             | `string` | ❌       | Additional reference URLs (social media profiles, contact pages, donation links, etc.).                                                         | maxLength: 20                        |
-| `context`          | `string` | ❌       | Free-form additional context about the organization.                                                                                            | maxLength: 50000, maxGraphemes: 5000 |
-| `location`         | `ref`    | ❌       | A strong reference to the location where the organization is based. The record referenced must conform with the lexicon app.certified.location. |                                      |
-| `foundedDate`      | `string` | ❌       | When the organization was established.                                                                                                          |                                      |
-| `createdAt`        | `string` | ✅       | Client-declared timestamp when this record was originally created.                                                                              |                                      |
+| Property           | Type     | Required | Description                                                                                                                                     | Comments      |
+| ------------------ | -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `organizationType` | `string` | ❌       | Legal or operational structures of the organization (e.g. 'nonprofit', 'ngo', 'government', 'social-enterprise', 'cooperative').                | maxLength: 10 |
+| `urls`             | `ref`    | ❌       | Additional reference URLs (social media profiles, contact pages, donation links, etc.).                                                         | maxLength: 20 |
+| `location`         | `ref`    | ❌       | A strong reference to the location where the organization is based. The record referenced must conform with the lexicon app.certified.location. |               |
+| `foundedDate`      | `string` | ❌       | When the organization was established.                                                                                                          |               |
+| `createdAt`        | `string` | ✅       | Client-declared timestamp when this record was originally created.                                                                              |               |
+
+#### Defs
+
+##### `app.certified.actor.organization#urlItem`
+
+| Property | Type     | Required | Description                                                                   |
+| -------- | -------- | -------- | ----------------------------------------------------------------------------- |
+| `url`    | `string` | ✅       | The URL.                                                                      |
+| `label`  | `string` | ❌       | Optional human-readable label for this URL (e.g. 'Twitter', 'Donation page'). |
 
 ---
 
