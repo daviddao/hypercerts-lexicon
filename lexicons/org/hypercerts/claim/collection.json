@@ -10,7 +10,7 @@
         "type": "object",
         "required": ["title", "createdAt"],
         "properties": {
-          "collectionType": {
+          "type": {
             "type": "string",
             "description": "The type of this collection. Possible fields can be 'favorites', 'project', or any other type of collection."
           },

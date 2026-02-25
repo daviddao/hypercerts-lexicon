@@ -190,7 +190,7 @@ dataclass rights {
 ' org.hypercerts.claim.collection
 dataclass collection {
     !if (SHOW_FIELDS == "true")
-    collectionType?
+    type?
     title
     shortDescription?
     description? (Leaflet ref)
